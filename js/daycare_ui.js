@@ -330,5 +330,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	updateDaycareUI();
 
 	// Update UI every second
-	setInterval(updateDaycareUI, 1000);
+	/* setInterval(updateDaycareUI, 1000); */
 });

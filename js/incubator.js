@@ -79,7 +79,7 @@ function addEggToIncubator() {
 		// Get egg from daycare
 		const daycareEggs = getDaycareEggs();
 		if (!daycareEggs || daycareEggs.length === 0) {
-			alert('No eggs available in the daycare!');
+			console.warn('No eggs available in the daycare!');
 			return false;
 		}
 
@@ -258,6 +258,10 @@ function hatchEggSilent(eggIndex) {
 }
 
 function addStepsToEggSilent(eggIndex, steps) {
+	if (steps === undefined || isNaN(steps)) {
+		steps = getAverageStepsPerTick();
+	}
+
 	const incubatorEggs = getIncubatorEggs();
 
 	if (eggIndex >= incubatorEggs.length) {
@@ -285,6 +289,9 @@ function applyOfflineEggProgress() {
 		return;
 	}
 
+	const last = parseInt(localStorage.getItem("lastGlobalTick"), 10);
+	if (!last) return;
+
 	const lastActive = parseInt(localStorage.getItem(LAST_ACTIVE_KEY), 10);
 	if (!lastActive) {
 		return;
@@ -301,11 +308,22 @@ function applyOfflineEggProgress() {
 		return;
 	}
 
-	const totalSteps = getAverageStepsPerTick() * ticks;
+	/* const totalSteps = getAverageStepsPerTick() * ticks;
 	const incubatorEggs = getIncubatorEggs();
 
 	for (let i = incubatorEggs.length - 1; i >= 0; i--) {
 		addStepsToEggSilent(i, totalSteps);
+	} */
+	for (let t = 0; t < ticks; t++) {
+		const eggs = getIncubatorEggs();
+
+		if (eggs.length < 6) {
+			addEggToIncubator();
+		}
+
+		for (let i = eggs.length - 1; i >= 0; i--) {
+			addStepsToEggSilent(i);
+		}
 	}
 
 	saveGameData();
@@ -478,7 +496,9 @@ function renderIncubator() {
 				eggInfo.className = 'egg-info';
 
 				// Calculate progress percentage
-				const progressPercentage = Math.min((egg.steps / pokemon.egg_steps) * 100, 100);
+				const steps = Number(egg.steps) || 0;
+				const total = Number(pokemon.egg_steps) || 1;
+				const progressPercentage = Math.min((steps / total) * 100, 100);
 
 				eggInfo.innerHTML = `
 					<p class="pokemon-name">${pokemon.name}</p>

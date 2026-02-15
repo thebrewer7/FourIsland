@@ -158,5 +158,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	renderStore();
 	
 	// Update display every second
-	setInterval(renderStore, 1000);
+	/* setInterval(renderStore, 1000); */
 });

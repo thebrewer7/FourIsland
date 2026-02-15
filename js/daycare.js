@@ -485,4 +485,4 @@ function updateDaycare() {
 }
 
 // Run daycare checks periodically
-setInterval(updateDaycare, 1000);
+/* setInterval(updateDaycare, 1000); */
