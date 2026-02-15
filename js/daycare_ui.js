@@ -328,7 +328,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Initial UI update
 	updateDaycareUI();
-
-	// Update UI every second
-	/* setInterval(updateDaycareUI, 1000); */
 });

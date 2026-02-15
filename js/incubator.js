@@ -308,12 +308,7 @@ function applyOfflineEggProgress() {
 		return;
 	}
 
-	/* const totalSteps = getAverageStepsPerTick() * ticks;
-	const incubatorEggs = getIncubatorEggs();
-
-	for (let i = incubatorEggs.length - 1; i >= 0; i--) {
-		addStepsToEggSilent(i, totalSteps);
-	} */
+	const totalSteps = getAverageStepsPerTick() * ticks;
 	for (let t = 0; t < ticks; t++) {
 		const eggs = getIncubatorEggs();
 
@@ -322,7 +317,7 @@ function applyOfflineEggProgress() {
 		}
 
 		for (let i = eggs.length - 1; i >= 0; i--) {
-			addStepsToEggSilent(i);
+			addStepsToEggSilent(i, totalSteps);
 		}
 	}
 

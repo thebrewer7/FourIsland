@@ -483,6 +483,3 @@ function updateDaycare() {
         transferDaycareEggsToIncubator();
     }
 }
-
-// Run daycare checks periodically
-/* setInterval(updateDaycare, 1000); */
